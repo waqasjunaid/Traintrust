@@ -1,0 +1,36 @@
+model:
+  backbone: "local"
+  max_seq_len: 256
+  max_lines: 32
+
+data:
+  dataset: "bigvul"
+  bigvul_path: "data/bigvul_example"
+  cache_root: "data/bigvul_example/cache"
+  train_size: null
+  val_size: null
+  batch_size: 8
+  num_workers: 0
+
+syntax_benign:
+  mode: "stub"
+
+trust_loss:
+  lambda_trust: 1.0
+  lambda_reg: 0.0
+  alpha_attn_iou: 1.0
+  alpha_syn:      0.5
+  alpha_pdg:      0.5
+
+train:
+  epochs: 2
+  lr: 5.0e-5
+  weight_decay: 0.01
+  log_every: 5
+  seed: 42
+  device: "auto"
+  save_dir: null
+
+eval:
+  iou_threshold: 0.5
+  attention_top_k: 5

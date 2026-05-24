@@ -1,0 +1,57 @@
+# =============================================================================
+# Config for REAL experiments with a HuggingFace backbone.
+#
+# Before using this:
+#   1. Fix your CUDA driver or install matching PyTorch:
+#        pip install torch --index-url https://download.pytorch.org/whl/cu118
+#   2. Point bigvul_path at your real BigVul data folder
+#   3. Run preprocessing first:
+#        python -m train_trust.scripts.preprocess --config configs/hf_bigvul.yaml
+# =============================================================================
+
+model:
+  # Change to "hf:microsoft/graphcodebert-base" or "hf:microsoft/unixcoder-base"
+  backbone: "hf:/mnt/cisk/junaid/junaid/linevul/codebert"
+  max_seq_len: 256       # real code is longer than synthetic
+  max_lines: 64          # BigVul functions can be long
+
+data:
+  dataset: "bigvul"
+  bigvul_path: "/mnt/cisk/junaid/junaid/TrainTrust/data/big-vul_dataset"
+  cache_root: "/mnt/cisk/junaid/junaid/train-trust/data/cache"
+  train_size: null       # null = use all samples
+  val_size: null
+  batch_size: 8         # reduce to 8 if you OOM on a 16GB GPU
+  num_workers: 0
+
+# Syntax-benign scorer. Start with "stub", swap to ensemble later.
+# See README for how to train the ensemble.
+syntax_benign:
+  mode: "stub"
+  # When you have trained classifiers:
+  # mode: "ensemble"
+  # codebert_path:      "checkpoints/syntax_codebert"
+  # graphcodebert_path: "checkpoints/syntax_graphcodebert"
+  # unixcoder_path:     "checkpoints/syntax_unixcoder"
+  # ensemble_mode: "average"
+  # device: "cuda"
+
+trust_loss:
+  lambda_trust: 0.0
+  lambda_reg: 0.01       # slight L2 reg helps on real data
+  alpha_attn_iou: 1.0
+  alpha_syn:      0.5
+  alpha_pdg:      0.5
+
+train:
+  epochs: 5
+  lr: 2.0e-5
+  weight_decay: 0.01
+  log_every: 50
+  seed: 42
+  device: "auto"
+  save_dir: "checkpoints/baseline"
+
+eval:
+  iou_threshold: 0.5
+  attention_top_k: 5

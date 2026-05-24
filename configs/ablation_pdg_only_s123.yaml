@@ -1,0 +1,31 @@
+model:
+  backbone: hf:/mnt/cisk/junaid/junaid/linevul/codebert
+  max_seq_len: 256
+  max_lines: 64
+data:
+  dataset: bigvul
+  bigvul_path: /mnt/cisk/junaid/junaid/TrainTrust/data/big-vul_dataset
+  cache_root: /mnt/cisk/junaid/junaid/train-trust/data/cache
+  train_size: null
+  val_size: null
+  batch_size: 8
+  num_workers: 0
+syntax_benign:
+  mode: stub
+trust_loss:
+  lambda_trust: 1.0
+  lambda_reg: 0.01
+  alpha_attn_iou: 0.0
+  alpha_syn: 0.0
+  alpha_pdg: 0.5
+train:
+  epochs: 5
+  lr: 2.0e-05
+  weight_decay: 0.01
+  log_every: 50
+  seed: 123
+  device: auto
+  save_dir: checkpoints/ablation_pdg_only_s123
+eval:
+  iou_threshold: 0.5
+  attention_top_k: 5
