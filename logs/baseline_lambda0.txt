@@ -1,0 +1,2 @@
+usage: train.py [-h] [--config CONFIG]
+train.py: error: unrecognized arguments: --override lambda_trust=0.0 --override save_dir=checkpoints/baseline_lambda0

@@ -1,0 +1,5 @@
+nohup: 忽略输入
+[train] device = cuda
+[bigvul] split=train  loaded=150908  vuln=8736  benign=142172  skipped=0
+[bigvul] split=val    loaded= 18864  vuln=1109  benign=17755  skipped=0
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 30523.55it/s]

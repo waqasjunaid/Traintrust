@@ -1,0 +1,24 @@
+nohup: 忽略输入
+[eval] device=cuda  split=test
+[bigvul] split=test   loaded= 18864  vuln=1055  benign=17809  skipped=0
+[eval] loaded 18864 samples from test
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 28830.32it/s]
+[eval] loading checkpoint: checkpoints/baseline/best_model.pt
+[eval] checkpoint from epoch 3
+[eval] checkpoint val metrics: {'f1': 0.8287568647029456, 'precision': 0.9284116331096197, 'recall': 0.7484220018034266, 'accuracy': 0.9818172179813401, 'auc': 0.9202015764619067, 'avg_iou': 0.1589953905213175, 't_score': 0.16691051738761664}
+[eval] evaluating on test (18864 samples)...
+
+============================================================
+  RESULTS on TEST split
+============================================================
+  F1:         0.8351
+  Precision:  0.9182
+  Recall:     0.7659
+  Accuracy:   0.9831
+  AUC-ROC:    0.9223
+  MCC:        0.8301
+  avg_IoU:    0.1522
+  T-score:    0.1667
+============================================================
+
+[eval] results saved to results/eval_test_checkpoints.json

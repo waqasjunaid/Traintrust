@@ -1,0 +1,24 @@
+nohup: 忽略输入
+[eval] device=cuda  split=test
+[bigvul] split=test   loaded= 18864  vuln=1055  benign=17809  skipped=0
+[eval] loaded 18864 samples from test
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 10581.07it/s]
+[eval] loading checkpoint: checkpoints/ablation_iou_only/best_model.pt
+[eval] checkpoint from epoch 4
+[eval] checkpoint val metrics: {'f1': 0.8539553752535497, 'precision': 0.9756662804171495, 'recall': 0.7592425608656447, 'accuracy': 0.9847328244274809, 'auc': 0.8663311545103818, 'avg_iou': 0.26207584060844574, 't_score': 0.16538379983036472}
+[eval] evaluating on test (18864 samples)...
+
+============================================================
+  RESULTS on TEST split
+============================================================
+  F1:         0.8591
+  Precision:  0.9736
+  Recall:     0.7687
+  Accuracy:   0.9859
+  AUC-ROC:    0.8894
+  MCC:        0.8584
+  avg_IoU:    0.2459
+  T-score:    0.1653
+============================================================
+
+[eval] results saved to results/eval_test_ablation_iou_only.json

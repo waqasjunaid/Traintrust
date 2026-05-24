@@ -1,0 +1,40 @@
+nohup: 忽略输入
+  -> configs/ablation_iou_only_s42.yaml
+  -> configs/ablation_iou_only_s123.yaml
+  -> configs/ablation_iou_only_s456.yaml
+  -> configs/ablation_syn_only_s42.yaml
+  -> configs/ablation_syn_only_s123.yaml
+  -> configs/ablation_syn_only_s456.yaml
+  -> configs/ablation_pdg_only_s42.yaml
+  -> configs/ablation_pdg_only_s123.yaml
+  -> configs/ablation_pdg_only_s456.yaml
+  -> configs/ablation_iou_syn_s42.yaml
+  -> configs/ablation_iou_syn_s123.yaml
+  -> configs/ablation_iou_syn_s456.yaml
+  -> configs/ablation_iou_pdg_s42.yaml
+  -> configs/ablation_iou_pdg_s123.yaml
+  -> configs/ablation_iou_pdg_s456.yaml
+  -> configs/ablation_syn_pdg_s42.yaml
+  -> configs/ablation_syn_pdg_s123.yaml
+  -> configs/ablation_syn_pdg_s456.yaml
+  -> configs/lambda_0.1_s42.yaml
+  -> configs/lambda_0.1_s123.yaml
+  -> configs/lambda_0.1_s456.yaml
+  -> configs/lambda_0.5_s42.yaml
+  -> configs/lambda_0.5_s123.yaml
+  -> configs/lambda_0.5_s456.yaml
+  -> configs/lambda_2.0_s42.yaml
+  -> configs/lambda_2.0_s123.yaml
+  -> configs/lambda_2.0_s456.yaml
+  -> configs/lambda_5.0_s42.yaml
+  -> configs/lambda_5.0_s123.yaml
+  -> configs/lambda_5.0_s456.yaml
+  -> configs/traintrust_s123.yaml
+  -> configs/baseline_s123.yaml
+  -> configs/traintrust_s456.yaml
+  -> configs/baseline_s456.yaml
+
+Generated 34 config files.
+
+To run with 3 seeds for statistical significance:
+  python -m train_trust.scripts.generate_configs --base configs/hf_bigvul.yaml --seeds 42,123,456
