@@ -1,0 +1,59 @@
+# Train-Trust configuration
+# All hyperparameters in one place. Override at the CLI: --override key=value
+
+model:
+  # Backbone for the vulnerability detector.
+  #   "local"     = tiny from-scratch transformer (no downloads, CPU smoke test)
+  #   "hf:<name>" = any HuggingFace model, e.g.:
+  #                 "hf:microsoft/codebert-base"
+  #                 "hf:microsoft/graphcodebert-base"
+  #                 "hf:microsoft/unixcoder-base"
+  # For real experiments, use a HuggingFace backbone. For environments without
+  # internet access (or for quick testing), use "local".
+  backbone: "local"
+  max_seq_len: 256
+  max_lines: 32          # max source-code lines per function (after which we truncate)
+
+data:
+  # 'synthetic' = toy generator for smoke tests (CPU-only, no downloads).
+  # 'bigvul'    = real dataset. Set bigvul_path to a directory containing
+  #               train.csv / val.csv / test.csv (or .json variants).
+  dataset: "synthetic"
+  bigvul_path: "data/bigvul"
+  # cache_root: where to cache PDG + syntax-benign signals.
+  # Leave null to recompute every epoch (fine for synthetic; awful for BigVul).
+  cache_root: null
+  train_size: 64
+  val_size: 16
+  batch_size: 8
+  num_workers: 0
+
+# Syntax-benign scorer configuration.
+# mode: "stub"     — regex heuristic (for smoke tests / when no classifiers trained)
+# mode: "single"   — one fine-tuned classifier (model_dir: "checkpoints/syntax_codebert")
+# mode: "ensemble" — three classifiers with voting (see README)
+syntax_benign:
+  mode: "stub"
+
+trust_loss:
+  # Top-level weight λ on L_trust in L_total = L_ce + λ · L_trust + λ_reg · L_reg
+  lambda_trust: 1.0
+  lambda_reg: 0.0
+  # Internal weights α_i on the three penalty components.
+  # Setting any α_i to 0.0 disables that component (useful for ablations).
+  alpha_attn_iou: 1.0    # attention-IoU loss     (slide 10, α₁)
+  alpha_syn:      0.5    # syntax-benign penalty  (slide 10, α₂)
+  alpha_pdg:      0.5    # PDG-reachability penal (slide 10, α₃)
+
+train:
+  epochs: 3
+  lr: 5.0e-5
+  weight_decay: 0.01
+  log_every: 5
+  seed: 42
+  device: "auto"
+  save_dir: null       # set to "checkpoints/train_trust" to save best model
+
+eval:
+  iou_threshold: 0.5    # δ_IoU for the trustworthiness label (UntrustVul, slide 10)
+  attention_top_k: 5    # how many top-attended lines we treat as the "explanation"
